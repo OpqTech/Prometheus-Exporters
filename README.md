@@ -36,7 +36,7 @@ Here is an example playbook:-
   user: ubuntu
   become: yes
   roles:
-    - exporters
+    - Prometheus-Exporters
 ```
 
 ## Usage
