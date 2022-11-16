@@ -1,0 +1,33 @@
+---
+- name: Adding user for MySQL Exporter
+  user:
+    name: prom
+    shell: /sbin/nologin
+
+- name: Downloading and unarchiving the mysqld exporter
+  unarchive:
+    src: "{{ mysql_exporter_download_url }}"
+    dest: /tmp
+    remote_src: yes
+    mode: 0755
+
+- name: Copy mysqld-exporter to appropriate path
+  copy:
+    src: "/tmp/{{ mysql_dest_package_name }}/mysqld_exporter"
+    dest: /usr/local/bin/
+    remote_src: yes
+    mode: 0555
+
+- name: Creating Service for MySQL Exporter
+  template:
+    src: mysql-exporter.j2
+    dest: /etc/systemd/system/mysql-exporter.service
+    mode: 0755
+
+- name: Enabling and starting MySQL Exporter service
+  systemd:
+    name: mysql-exporter
+    daemon_reload: yes
+    state: started
+    enabled: yes
+

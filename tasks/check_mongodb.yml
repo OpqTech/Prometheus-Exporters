@@ -1,0 +1,15 @@
+---
+- name: Getting Process IDs of the MongoDB
+  pids:
+    name: mongod
+  register: pids_of_mongod
+
+- name: Getting MongoDB PIDs
+  debug:
+    msg: "PIDs of MongoDB is {{ pids_of_mongod.pids|join(',')}}"
+
+- name: Installing Mongodb Exporter
+  include_tasks: mongodb_exporter.yml
+  when: pids_of_mongod.pids | length > 0
+...
+

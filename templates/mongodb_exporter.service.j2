@@ -1,0 +1,14 @@
+[Unit]
+Description=Mongodb Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/usr/local/bin/mongodb_exporter --mongodb.uri=mongodb://mongodb_exporter:password@localhost:27017 --collect-all --web.listen-address=":9216"
+
+[Install]
+WantedBy=multi-user.target
+

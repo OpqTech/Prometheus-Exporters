@@ -1,0 +1,24 @@
+---
+- name: Installing pip3
+  package:
+    name: ['python3-pip', 'net-tools']
+    state: present
+    update_cache: yes
+
+- name: Installing psutil
+  pip:
+    name: psutil
+
+- name: Create Exporter Group
+  group:
+    name: "{{ exporter_group_name }}"
+    state: present
+
+- name: Create Exporter User
+  user:
+    name: "{{ exporter_user_name }}"
+    state: present
+    group: "{{ exporter_group_name }}"
+    shell: /sbin/nologin
+...
+

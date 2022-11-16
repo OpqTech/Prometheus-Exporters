@@ -1,0 +1,39 @@
+---
+- name: Installing pymongo Dependancy
+  pip:
+    name: pymongo
+    executable: pip3
+
+- name: Downloading Mongodb Exporter
+  unarchive:
+    src: "{{ mongodb_exporter_url }}"
+    dest: /tmp/
+    remote_src: yes
+
+- name: Copy mongodb_exporter Binary to /usr/local/bin
+  copy:
+    src: "/tmp/{{ mongodb_exporter_dir }}/mongodb_exporter"
+    dest: "/usr/local/bin"
+    remote_src: yes
+    mode: 0750
+
+- name: Copy Service File of MongoDB Exporter
+  template:
+    src: mongodb_exporter.service.j2
+    dest: /etc/systemd/system/mongodb_exporter.service
+    owner: root
+    group: root
+
+- name: Cleaning Up /tmp Dir
+  file:
+    path: "/tmp/{{ mongodb_exporter_dir }}"
+    state: absent
+
+- name: Enable and restart mongodb exporter service
+  systemd:
+    name: mongodb_exporter
+    daemon_reload: yes
+    state: started
+    enabled: yes
+...
+

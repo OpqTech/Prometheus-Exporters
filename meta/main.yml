@@ -1,0 +1,19 @@
+    min_ansible_version: 2.3
+
+    platforms:
+        - name: Ubuntu
+          versions:
+              - xenial
+              - precise
+              - trusty
+        - name: Debian
+          versions:
+              - jessie
+              - wheezy
+        - name: EL
+          versions:
+              - 6
+              - 7
+
+dependencies: []
+

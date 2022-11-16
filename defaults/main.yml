@@ -1,0 +1,37 @@
+---
+# vars file for osm_prometheus_exporter
+db_root_password: "password"
+
+#### Variables for Node Exporter ####
+node_exporter_version: "0.17.0"
+
+#### Variables for Apache Exporter ####
+apache_exporter: "0.5.0"
+
+#### Variables for Elasticsearch Exporter ####
+es_exporter: "1.0.2"
+es_url: "localhost"
+es_port: "9200"
+
+#### Variables for MongoDB Exporter ####
+mongodb_exporter_version: 0.32.0
+mongodb_exporter_dir: "mongodb_exporter-{{ mongodb_exporter_version }}.linux-amd64"
+mongodb_exporter_url: "https://github.com/percona/mongodb_exporter/releases/download/v{{ mongodb_exporter_version }}/{{ mongodb_exporter_dir }}.tar.gz"
+mongodb_host: "127.0.0.1"
+mongodb_port: "27017"
+
+
+#### Variables for Nginx Exporter ####
+nginx_exporter: "0.2.0"
+nginx_ip: "localhost"
+nginx_port: "80"
+
+#### Variables for Kafka Exporter ####
+kafka_exporter_version: "1.2.0"
+kafka_ip: "localhost"
+kafka_port: "9092"
+
+#### Variables for MySQLD Exporter ####
+mysql_exporter_version: "0.11.0"
+prometheus_mysqld_exporter_env: 'exporter:password@(localhost:3306)/'
+
