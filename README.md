@@ -42,6 +42,6 @@ Here is an example playbook:-
 ## Usage
 For using this role you have to pass one variable to role which is **exporter_name**
 ```shell
-ansible-playbook -i hosts  -e exporter_name="node"
+ansible-playbook -i hosts site.yml -e exporter_name="node"
 ```
 

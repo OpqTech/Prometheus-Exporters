@@ -8,19 +8,36 @@
   set_fact:
     base_url: "https://github.com/justwatchcom/elasticsearch_exporter/releases/download"
 
-- name: Downloading and unarchiving the Elasticsearch Exporter
+- name: Downloading and unarchiving the Elasticsearch Exporter(AMD)
   unarchive:
     src: "{{ base_url }}/v{{ es_exporter }}/elasticsearch_exporter-{{ es_exporter }}.linux-amd64.tar.gz"
     dest: /tmp
     remote_src: yes
     mode: 0755
 
-- name: Copy elasticsearch-exporter to appropriate path
+- name: Copy elasticsearch-exporter to appropriate path(AMD)
   copy:
     src: "/tmp/elasticsearch_exporter-{{ es_exporter }}.linux-amd64/elasticsearch_exporter"
     dest: /usr/local/bin/
     remote_src: yes
     mode: 0555
+  when: ansible_architecture == "x86_64"
+
+- name: Downloading and unarchiving the Elasticsearch Exporter(ARM)
+  unarchive:
+    src: "{{ base_url }}/v{{ es_exporter }}/elasticsearch_exporter-{{ es_exporter }}.linux-arm64.tar.gz"
+    dest: /tmp
+    remote_src: yes
+    mode: 0755
+  when: ansible_architecture == "aarch64"
+
+- name: Copy elasticsearch-exporter to appropriate path(ARM)
+  copy:
+    src: "/tmp/elasticsearch_exporter-{{ es_exporter }}.linux-arm64/elasticsearch_exporter"
+    dest: /usr/local/bin/
+    remote_src: yes
+    mode: 0555
+  when: ansible_architecture == "aarch64"  
 
 - name: Creating Service for Elasticsearch Exporter
   template:
@@ -34,4 +51,7 @@
     daemon_reload: yes
     state: started
     enabled: yes
+
+
+
 
